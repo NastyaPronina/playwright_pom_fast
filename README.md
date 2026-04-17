@@ -17,7 +17,7 @@
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com
+   git clone https://github.com/NastyaPronina/playwright_pom_fast.git
    cd playwright_pom_fast
 
 2. Создайте и активируйте виртуальное окружение:
