@@ -32,4 +32,15 @@ def test_add_and_remove_item(logged_in_page):
     # Проверяем, что т.к. корзина пустая, то элемент 'shopping-cart-badge' отсутствует в DOM
     expect(logged_in_page._cart_badge).not_to_be_attached()
 
+@allure.title("Проверка сортировки товаров по цене (от низкой к высокой)")
+def test_sort_prices_low_to_high(logged_in_page):
+    # 1. Применяем сортировку
+    logged_in_page.sort_by_price_low_to_high()
+    # 2. Получаем список цен со страницы (только числа)
+    actual_prices = logged_in_page.get_all_prices()
+    # 3. Создаем ожидаемый (отсортированный) список цен
+    expected_prices = sorted(actual_prices)
+    # 4. Сравниваем их между собой
+    assert actual_prices == expected_prices, f"Сортировка неверная! Ожидали {expected_prices}, получили {actual_prices}"
+
 
