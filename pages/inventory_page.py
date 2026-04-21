@@ -4,8 +4,10 @@ import allure
 class InventoryPage(BasePage):
     def __init__(self, page):
         super().__init__(page)
+        # Храним строку селектора, т.к. она нужна для методов ожидания
+        self._ADD_TO_CART_SELECTOR = "[data-test^='add-to-cart']"
         # Локатор для первой карточки товара (кнопка Add to cart)
-        self._first_item_add_button = page.locator("[data-test^='add-to-cart']").first
+        self._first_item_add_button = page.locator(self._ADD_TO_CART_SELECTOR).first
         # Локатор иконки корзины
         self._cart_badge = page.locator("[data-test='shopping-cart-badge']")
         # Локатор для кнокпки Remove
@@ -17,6 +19,7 @@ class InventoryPage(BasePage):
 
     @allure.step("Добавление первого товара в корзину")
     def add_first_item_to_cart(self):
+        self.wait_for_element(self._ADD_TO_CART_SELECTOR)
         self._first_item_add_button.click()
 
     @allure.step("Получаем количество товара в корзине")

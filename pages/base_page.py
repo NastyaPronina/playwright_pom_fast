@@ -1,5 +1,6 @@
 from playwright.sync_api import Page
 from data.credentials import Credentials
+import allure
 
 class BasePage:
     RELATIVE_URL = ""
@@ -12,3 +13,7 @@ class BasePage:
 
     def get_title(self):
         return self.page.title()
+
+    @allure.step("Ожидание видимости элемента")
+    def wait_for_element(self, selector):
+        self.page.wait_for_selector(selector, state="visible")
