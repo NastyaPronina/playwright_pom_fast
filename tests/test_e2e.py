@@ -9,6 +9,12 @@ def test_add_item_to_cart(logged_in_page):
     expect(logged_in_page._cart_badge).to_have_text("1")
     print("\nТовар успешно добавлен, в корзине 1 предмет!")
 
+@allure.title("Тест на добавление второго и третьего товара в корзину")
+def test_add_second_and_third_items_to_cart(logged_in_page):
+    logged_in_page.add_item_by_index(1)
+    logged_in_page.add_item_by_index(2)
+    expect(logged_in_page._cart_badge).to_have_text("2")
+
 @allure.title("Тест на наличие товара в корзине")
 def test_item_in_cart(logged_in_page, cart_page):
     logged_in_page.add_first_item_to_cart()

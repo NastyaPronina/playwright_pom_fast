@@ -43,3 +43,11 @@ class InventoryPage(BasePage):
         # Находим все элементы цен
         price_elements = self._item_prices.all_inner_texts()
         return [float(p.replace('$', '')) for p in price_elements]
+
+    def add_item_by_index(self, index):
+        buttons = self.page.locator(self._ADD_TO_CART_SELECTOR)
+        count = buttons.count()
+        if index < 0 or index >= count:
+            raise IndexError(f"Index {index} out of range. Available items: {count}")
+        # Добавляем в корзину товар с конкретным индексом
+        buttons.nth(index).click()
