@@ -1,5 +1,6 @@
-from playwright.sync_api import Page, expect
+from playwright.sync_api import expect
 import allure
+from data.credentials import Credentials
 
 
 @allure.title("Тест на добавление первого в списке товара в корзину")
@@ -11,15 +12,18 @@ def test_add_item_to_cart(logged_in_page):
 @allure.title("Тест на наличие товара в корзине")
 def test_item_in_cart(logged_in_page, cart_page):
     logged_in_page.add_first_item_to_cart()
-    cart_page.open("https://www.saucedemo.com/cart.html")
+    cart_page.open()
     expect(cart_page._cart_item_name).to_have_text("Sauce Labs Backpack")
 
 @allure.title("Тест на совершение заказа товара")
 def test_full_checkout_flow(logged_in_page, cart_page, checkout_page):
     logged_in_page.add_first_item_to_cart()
-    cart_page.open("https://www.saucedemo.com/cart.html")
+    cart_page.open()
     cart_page.click_checkout()
-    checkout_page.fill_checkout_form("Ann", "Parker", "123456")
+    checkout_page.fill_checkout_form(
+        Credentials.FIRST_NAME, 
+        Credentials.LAST_NAME, 
+        Credentials.ZIP_CODE)
     checkout_page.finish_order()
     expect(checkout_page._success_message).to_have_text("Thank you for your order!")
 
