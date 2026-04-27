@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+import allure
 
 
 @allure.title("Тест на наличие 'Swag Labs' в заголовке")

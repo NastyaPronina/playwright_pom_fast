@@ -1,4 +1,6 @@
 from pages.base_page import BasePage
+import allure
+
 
 class CartPage(BasePage):
     RELATIVE_URL = "/cart.html"
