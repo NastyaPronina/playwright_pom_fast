@@ -3,6 +3,15 @@ import allure
 from data.credentials import Credentials
 
 
+@allure.title("API проверка на доступность бэкенда")
+def test_service_is_available(playwright):
+    api_context = playwright.request.new_context(base_url=Credentials.BASE_URL)
+    try:
+        response = api_context.get("/")
+        assert response.status == 200, f"Сервис недоступен, status={response.status}"
+    finally:
+        api_context.dispose()
+
 @allure.title("Тест на добавление первого в списке товара в корзину")
 def test_add_item_to_cart(logged_in_page):
     logged_in_page.add_first_item_to_cart()
