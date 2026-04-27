@@ -18,8 +18,10 @@ class CheckoutPage(BasePage):
         self._zip_code.fill(zip_code)
         self._continue_button.click()
 
+    @allure.step("Завершение заказа")
     def finish_order(self):
         self._finish_button.click()
 
+    @allure.step("Получение сообщения об успешном заказе")
     def get_success_message(self):
         return self._success_message.inner_text()

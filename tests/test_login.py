@@ -1,8 +1,9 @@
 from playwright.sync_api import Page, expect
 
 
+@allure.title("Тест на успешный логин")
 def test_login_success(page, login_page):
-    # 1. Используем методамы класса
+    # 1. Используем методы класса
     login_page.open("https://saucedemo.com")
     login_page.login("standard_user", "secret_sauce")
     
@@ -12,6 +13,7 @@ def test_login_success(page, login_page):
 
 import pytest
 
+@allure.title("Негативный тест логина")
 @pytest.mark.parametrize("user, password", [
     ("locked_out_user", "secret_sauce"), # Заблокированный юзер
     ("standard_user", "wrong_password"), # Неверный пароль

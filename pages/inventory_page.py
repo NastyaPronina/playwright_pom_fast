@@ -30,6 +30,7 @@ class InventoryPage(BasePage):
     def remove_first_item(self):
         self._remove_button.click()
 
+    @allure.step("Определение видимости кнопки 'Remove'")
     def is_remove_button_visible(self):
         # Проверяем, видна ли кнопка удаления (возвращает True/False)
         return self._remove_button.is_visible()
@@ -39,11 +40,13 @@ class InventoryPage(BasePage):
         # В <select> выбираем значение напрямую
         self._sort_dropdown.select_option("lohi")
 
+    @allure.step("Получение всех цен")
     def get_all_prices(self):
         # Находим все элементы цен
         price_elements = self._item_prices.all_inner_texts()
         return [float(p.replace('$', '')) for p in price_elements]
 
+    @allure.step("Получение товара по индексу")
     def add_item_by_index(self, index):
         buttons = self.page.locator(self._ADD_TO_CART_SELECTOR)
         count = buttons.count()
