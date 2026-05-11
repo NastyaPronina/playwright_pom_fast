@@ -7,15 +7,15 @@ class InventoryPage(BasePage):
         # Храним строку селектора, т.к. она нужна для методов ожидания
         self._ADD_TO_CART_SELECTOR = "[data-test^='add-to-cart']"
         # Локатор для первой карточки товара (кнопка Add to cart)
-        self._first_item_add_button = page.locator(self._ADD_TO_CART_SELECTOR).first
+        self._first_item_add_button = page.get_by_test_id(self._ADD_TO_CART_SELECTOR).first
         # Локатор иконки корзины
-        self._cart_badge = page.locator("[data-test='shopping-cart-badge']")
+        self._cart_badge = page.get_by_test_id("shopping-cart-badge")
         # Локатор для кнокпки Remove
-        self._remove_button = page.locator("[data-test='remove-sauce-labs-backpack']")
+        self._remove_button = page.get_by_test_id("remove-sauce-labs-backpack")
         # Локатор выпадающего списка (селектора)
-        self._sort_dropdown = page.locator("[data-test='product-sort-container']")
+        self._sort_dropdown = page.get_by_test_id("product-sort-container")
         # Локатор для всех цен на странице
-        self._item_prices = page.locator("[data-test='inventory-item-price']")
+        self._item_prices = page.get_by_test_id("inventory-item-price")
 
     @allure.step("Добавление первого товара в корзину")
     def add_first_item_to_cart(self):
@@ -48,7 +48,7 @@ class InventoryPage(BasePage):
 
     @allure.step("Получение товара по индексу")
     def add_item_by_index(self, index):
-        buttons = self.page.locator(self._ADD_TO_CART_SELECTOR)
+        buttons = self.page.get_by_test_id(self._ADD_TO_CART_SELECTOR)
         count = buttons.count()
         if index < 0 or index >= count:
             raise IndexError(f"Index {index} out of range. Available items: {count}")

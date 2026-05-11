@@ -5,9 +5,9 @@ class LoginPage(BasePage):
     def __init__(self, page):
         super().__init__(page) 
         # Локаторы (находим элементы)
-        self._username_field = page.get_by_test_id("username")
-        self._password_field = page.get_by_test_id("password")
-        self._login_button = page.get_by_test_id("login-button")
+        self._username_field = page.get_by_placeholder("Username")
+        self._password_field = page.get_by_placeholder("Password")
+        self._login_button = page.get_by_role("button", name="Login")
         self._error_message = page.get_by_test_id("error")
 
     @allure.step("Авторизация пользователем {username}")
