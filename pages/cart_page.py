@@ -7,8 +7,8 @@ class CartPage(BasePage):
 
     def __init__(self, page):
         super().__init__(page)
-        self._cart_item_name = page.locator("[data-test='inventory-item-name']").first
-        self._checkout_button = page.locator("[data-test='checkout']")
+        self._cart_item_name = page.get_by_test_id("inventory-item-name").first
+        self._checkout_button = page.get_by_test_id("checkout")
 
     @allure.step("Получение названия товара в корзине")
     def get_cart_item_name(self):
