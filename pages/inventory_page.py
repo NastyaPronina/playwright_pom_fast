@@ -7,7 +7,7 @@ class InventoryPage(BasePage):
         # Храним строку селектора, т.к. она нужна для методов ожидания
         self._ADD_TO_CART_SELECTOR = "[data-test^='add-to-cart']"
         # Локатор для первой карточки товара (кнопка Add to cart)
-        self._first_item_add_button = page.get_by_test_id(self._ADD_TO_CART_SELECTOR).first
+        self._first_item_add_button = page.locator(self._ADD_TO_CART_SELECTOR).first
         # Локатор иконки корзины
         self._cart_badge = page.get_by_test_id("shopping-cart-badge")
         # Локатор для кнокпки Remove
@@ -48,7 +48,7 @@ class InventoryPage(BasePage):
 
     @allure.step("Получение товара по индексу")
     def add_item_by_index(self, index):
-        buttons = self.page.get_by_test_id(self._ADD_TO_CART_SELECTOR)
+        buttons = self.page.locator(self._ADD_TO_CART_SELECTOR)
         count = buttons.count()
         if index < 0 or index >= count:
             raise IndexError(f"Index {index} out of range. Available items: {count}")
