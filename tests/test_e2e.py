@@ -66,3 +66,20 @@ def test_sort_prices_low_to_high(logged_in_page):
 def test_products_count(logged_in_page):
     # Напрямую передаем локатор из страницы в ассерт expect
     expect(logged_in_page.inventory_items).to_have_count(6)
+
+@allure.title("Тест на проверку списка названий товаров")
+def test_all_products_are_visible(logged_in_page):
+    expected_names = [
+        "Sauce Labs Backpack",
+        "Sauce Labs Bike Light",
+        "Sauce Labs Bolt T-Shirt",
+        "Sauce Labs Fleece Jacket",
+        "Sauce Labs Onesie",
+        "Test.allTheThings() T-Shirt (Red)"
+    ]
+    # Проверяем весь список целиком
+    actual_names = logged_in_page.get_all_product_names()
+    assert actual_names == expected_names, (
+        f"Список названий товаров не соответствует ожидаемому! "
+        f"Ожидали {expected_names}, получили {actual_names}"
+    )

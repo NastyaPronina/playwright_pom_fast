@@ -18,6 +18,8 @@ class InventoryPage(BasePage):
         self._item_prices = page.get_by_test_id("inventory-item-price")
         # Локатор списка карточек товаров (публичный, т.к. нужен для проведения ассертов)
         self.inventory_items = page.get_by_test_id("inventory-item")
+        # Локатор для названий товаров
+        self._item_names = page.get_by_test_id("inventory-item-name")
 
     @allure.step("Добавление первого товара в корзину")
     def add_first_item_to_cart(self):
@@ -61,3 +63,7 @@ class InventoryPage(BasePage):
     def add_item_by_name(self, item_name: str):
         product_card = self.inventory_items.filter(has_text=item_name)
         product_card.get_by_role("button", name="Add to cart").click()
+
+    @allure.step("Получаем массив названий товаров")
+    def get_all_product_names(self) -> list[str]:
+        return self._item_names.all_inner_texts()
