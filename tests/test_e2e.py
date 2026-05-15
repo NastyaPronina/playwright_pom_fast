@@ -62,4 +62,7 @@ def test_sort_prices_low_to_high(logged_in_page):
     # 4. Сравниваем их между собой
     assert actual_prices == expected_prices, f"Сортировка неверная! Ожидали {expected_prices}, получили {actual_prices}"
 
-
+@allure.title("Тест на проверку точного количества товаров в каталоге")
+def test_prodects_count(logged_in_page):
+    # Напрямую передаем локатор из страницы в ассерт expect
+    expect(logged_in_page.inventory_items).to_have_count(6)

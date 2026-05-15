@@ -16,6 +16,8 @@ class InventoryPage(BasePage):
         self._sort_dropdown = page.get_by_test_id("product-sort-container")
         # Локатор для всех цен на странице
         self._item_prices = page.get_by_test_id("inventory-item-price")
+        # Локатор списка карточек товаров (публичный, т.к. нужен для проведения ассертов)
+        self.inventory_items = page.get_by_test_id("inventory-item")
 
     @allure.step("Добавление первого товара в корзину")
     def add_first_item_to_cart(self):
@@ -46,7 +48,7 @@ class InventoryPage(BasePage):
         price_elements = self._item_prices.all_inner_texts()
         return [float(p.replace('$', '')) for p in price_elements]
 
-    @allure.step("Получение товара по индексу")
+    @allure.step("Добавление товара по индексу")
     def add_item_by_index(self, index):
         buttons = self.page.locator(self._ADD_TO_CART_SELECTOR)
         count = buttons.count()
@@ -54,3 +56,8 @@ class InventoryPage(BasePage):
             raise IndexError(f"Index {index} out of range. Available items: {count}")
         # Добавляем в корзину товар с конкретным индексом
         buttons.nth(index).click()
+
+    @allure.step("Добавление товара по названию")
+    def add_item_by_name(self, item_name: str):
+        product_card = self.inventory_items.filter(has_text=item_name)
+        product_card.get_by_role("button", name="Add to cart").click()
